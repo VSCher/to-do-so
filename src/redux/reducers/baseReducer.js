@@ -1,29 +1,57 @@
-import { BASE_ACTION, CHANGE_INPUT } from '../actions/baseActions';
+import * as acts from '../actions/baseActions';
+import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage';
 
-const initialState = { value: 0 };
+const localData = loadFromLocalStorage('todoso');
+const initialState = localData ? localData : { base: [] };
 
-function onBaseChanage(state, { message }) {
-
-    return {
-        value: state.value + 1,
-        message
-    }
+function onEdit(state, { id }) {//ToDo Filter it
+    console.log(state, 'onEdit');
+    return state;
 }
 
-function onChangeInput(state, { value }) {
-    return {
-        ...state,
-        value
-    }
+export default function (state, action) {
+    const data = reducer(state, action);
+
+    console.log(data, 'reducer data');
+    saveToLocalStorage('todoso', data);
+    return data;
 }
 
-export default function (state = initialState, action) {
+function reducer(state = initialState, action) {
     switch (action.type) {
-        case BASE_ACTION :
-            return onBaseChanage(state, action);
 
-        case CHANGE_INPUT :
-            return onChangeInput(state, action);
+        case acts.ADD_TASK :
+            return [
+                ...state,
+                {
+                    completed: false,
+                    value: action.value,
+                    id: action.id
+                }
+            ];
+
+        case acts.TOGGLE_TASK :
+            console.log(state, 'onToggle');
+            return state.map(task=> {
+                if (task.id === action.id) {
+                    return {
+                        ...task,
+                        completed: !task.completed
+                    }
+
+                }
+                return task
+            });
+
+        case acts.EDIT_TASK :
+            return onEdit(state, action);
+
+        case acts.DELETE_TASK :
+            return state.filter(item=> item.id != action.id);
+
+        case acts.CLEAR_LOCAL :
+            return [];
+
         default :
             return state;
     }

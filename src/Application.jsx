@@ -2,13 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import autobind from 'autobind-decorator';
 
-import * as actions from './redux/actions/baseActions'
+import { clearLocal, toggleTask } from './redux/actions/baseActions';
 
-import FormControl  from 'react-bootstrap/lib/FormControl';
+import AddTask from './containers/AddTask.jsx';
+import ListTasksContainer from './containers/ListTasksContainer.jsx';
+
+import Button  from 'react-bootstrap/lib/Button';
 
 function mapStateToProps(state) {
     return {
-        value: state.base.value
+        tasks: state.base
     }
 }
 
@@ -18,35 +21,25 @@ function mapDispatchToProps() {
 }
 
 @connect(mapStateToProps)
-
 export default class Application extends React.Component {
+
     constructor() {
         super();
     }
 
     render() {
+        console.log(this.props.tasks, 'app');
         return (
             <div>
-                <div>Echo {this.props.value} </div>
-                <div onClick={this.handleClick}>Refresh</div>
-                <FormControl
-                    type="number"
-                    value={this.props.value}
-                    placeholder="Enter the number"
-                    onChange={this.handleInputChange}
-                />
+                <ListTasksContainer/>
+                <AddTask/>
+                <Button onClick={this.handleClick}>ClearStore</Button>
             </div>
         );
     }
 
     @autobind
     handleClick() {
-        this.props.dispatch(actions.baseActions('test'));
-    }
-
-    @autobind
-    handleInputChange(event) {
-        let numberValue = parseInt(event.target.value);
-        this.props.dispatch(actions.changeInput(numberValue));
+        this.props.dispatch(clearLocal());
     }
 }
