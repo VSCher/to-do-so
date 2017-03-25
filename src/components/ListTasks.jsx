@@ -16,7 +16,7 @@ export default class ListTasks extends React.Component {
                 />
             );
         });
-
+        todoItems.sort((a, b)=>a.props.itemValue > b.props.itemValue);
         return (
             <div>
                 {todoItems}

@@ -2,14 +2,14 @@ import * as acts from '../actions/baseActions';
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage';
 
 const localData = loadFromLocalStorage('todoso');
-const initialState = localData ? localData : { base: [] };
+const initialState = localData ? localData : [];
 
 function onEdit(state, { id }) {//ToDo Filter it
     console.log(state, 'onEdit');
     return state;
 }
 
-export default function (state, action) {
+export default function(state, action) {
     const data = reducer(state, action);
 
     console.log(data, 'reducer data');

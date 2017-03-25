@@ -1,4 +1,14 @@
-.completed {
+.task__mark {
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+.task__delete {
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+.task__completed {
     text-decoration: line-through;
     color: green;
 }

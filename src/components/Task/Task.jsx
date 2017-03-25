@@ -14,13 +14,13 @@ export default class Task extends React.Component {
 
     render() {
         return (
-            <div>
-                <span className={this.props.completed ? "completed" : " uncompleted"}
+            <div className="task">
+                <span className="task__mark" onClick={this.handleMarkCompleted}>Mark</span>
+                <span className="task__delete" onClick={this.handleDelete}>Delete</span>
+                <span className={this.props.completed ? "task__completed" : "task__uncompleted"}
                       onClick={this.handleEdit}>
                     {this.props.itemValue}
                 </span>
-                <span onClick={this.handleMarkCompleted}> Mark</span>
-                <span onClick={this.handleDelete}> Delete</span>
             </div>
         );
     }
