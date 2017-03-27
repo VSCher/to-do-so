@@ -1,43 +1,56 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 
+import EditTaskContainer from '../../containers/EditTaskContainer.jsx';
+
 import './Task.css';
 
 export default class Task extends React.Component {
     static propTypes = {
         completed: React.PropTypes.bool.isRequired,
-        itemValue: React.PropTypes.string.isRequired,
+        value: React.PropTypes.string.isRequired,
+        isOnEdit: React.PropTypes.bool.isRequired,
         onMark: React.PropTypes.func.isRequired,
         onEdit: React.PropTypes.func.isRequired,
         onDelete: React.PropTypes.func.isRequired,
     };
 
     render() {
+
+        let taskClass = this.props.completed ? "task__completed" : "task__uncompleted";
         return (
-            <div className="task">
-                <span className="task__mark" onClick={this.handleMarkCompleted}>Mark</span>
-                <span className="task__delete" onClick={this.handleDelete}>Delete</span>
-                <span className={this.props.completed ? "task__completed" : "task__uncompleted"}
-                      onClick={this.handleEdit}>
-                    {this.props.itemValue}
-                </span>
+            <div className={taskClass}>
+                <span className="task__mark" onClick={this.handleMark}>[mark]</span>
+                <span className="task__delete" onClick={this.handleDelete}>[delete]</span>
+
+                {!!this.props.isOnEdit &&
+                <EditTaskContainer id={this.props.id} value={this.props.value}/>}
+
+                {!this.props.isOnEdit &&
+                <span className="task__text" onClick={this.handleEdit}>
+                    {this.props.value}
+                </span>}
+
+
             </div>
         );
     }
 
+
     @autobind
-    handleMarkCompleted(event) {
-        this.props.onMark(event);
+    handleMark() {
+        this.props.onMark(this.props.id);
     }
 
     @autobind
-    handleEdit(event) {
-        this.props.onEdit(event);
+    handleEdit() {
+        this.props.onEdit(this.props.id);
+
     }
 
     @autobind
-    handleDelete(event) {
-        this.props.onDelete(event);
+    handleDelete() {
+        this.props.onDelete(this.props.id);
     }
 
 }

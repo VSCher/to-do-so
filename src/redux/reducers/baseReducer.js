@@ -1,19 +1,15 @@
 import * as acts from '../actions/baseActions';
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage';
 
-const localData = loadFromLocalStorage('todoso');
+const localStorageName = 'todotasks';
+const localData = loadFromLocalStorage(localStorageName);
 const initialState = localData ? localData : [];
 
-function onEdit(state, { id }) {//ToDo Filter it
-    console.log(state, 'onEdit');
-    return state;
-}
-
-export default function(state, action) {
+export default function (state, action) {
     const data = reducer(state, action);
 
     console.log(data, 'reducer data');
-    saveToLocalStorage('todoso', data);
+    saveToLocalStorage(localStorageName, data);
     return data;
 }
 
@@ -26,12 +22,12 @@ function reducer(state = initialState, action) {
                 {
                     completed: false,
                     value: action.value,
-                    id: action.id
+                    id: action.id,
+                    isOnEdit: false
                 }
             ];
 
         case acts.TOGGLE_TASK :
-            console.log(state, 'onToggle');
             return state.map(task=> {
                 if (task.id === action.id) {
                     return {
@@ -43,8 +39,31 @@ function reducer(state = initialState, action) {
                 return task
             });
 
+        case acts.EDIT_STARTED :
+            return state.map(task=> {
+                if (task.id === action.id) {
+                    return {
+                        ...task,
+                        isOnEdit: true
+                    }
+
+                }
+                return task
+            });
+
         case acts.EDIT_TASK :
-            return onEdit(state, action);
+            return state.map(task=> {
+                if (task.id === action.id) {
+                    return {
+                        ...task,
+                        value: action.value,
+                        isOnEdit: false,
+
+                    }
+
+                }
+                return task
+            });
 
         case acts.DELETE_TASK :
             return state.filter(item=> item.id != action.id);

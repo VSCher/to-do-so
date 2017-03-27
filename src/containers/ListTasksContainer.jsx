@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ListTasks from '../components/ListTasks.jsx';
-import { toggleTask, editTask, deleteTask }from '../redux/actions/baseActions'
+import ListTasks from '../components/ListTasks/ListTasks.jsx';
+import { toggleTask, editStarted, editTask, deleteTask }from '../redux/actions/baseActions'
 
 function mapStateToProps(state) {
     return {
-        tasks: state.base
+        tasks: state.base,
+        abc: state.abc
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        onMarkCompleted: (id)=> dispatch(toggleTask(id)),
-        onEdit: (id)=> dispatch(editTask(id)),
+        onMark: (id)=> dispatch(toggleTask(id)),
+        onEdit: (id)=> dispatch(editStarted(id)),
         onDelete: (id)=> dispatch(deleteTask(id)),
     }
 }

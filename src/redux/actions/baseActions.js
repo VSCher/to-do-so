@@ -1,6 +1,7 @@
 export const ADD_TASK = 'ADD_TASK';
 export const CLEAR_LOCAL = 'CLEAR_LOCAL';
 export const TOGGLE_TASK = 'TOGGLE_TASK';
+export const EDIT_STARTED = 'EDIT_STARTED';
 export const EDIT_TASK = 'EDIT_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 
@@ -26,10 +27,19 @@ export function toggleTask(id) {
     };
 }
 
-export function editTask(id) {
+export function editStarted(id) {
+    return {
+        type: EDIT_STARTED,
+        id
+    };
+}
+
+
+export function editTask(value, id) {
     return {
         type: EDIT_TASK,
-        id
+        value,
+        id,
     };
 }
 

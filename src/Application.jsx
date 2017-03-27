@@ -2,22 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import autobind from 'autobind-decorator';
 
-import { clearLocal, toggleTask } from './redux/actions/baseActions';
+import { clearLocal } from './redux/actions/baseActions';
+import { sortAbc } from './redux/actions/sortActions';
 
-import AddTask from './containers/AddTask.jsx';
+import AddTask from './containers/AddTaskContainer.jsx';
 import ListTasksContainer from './containers/ListTasksContainer.jsx';
 
 import Button  from 'react-bootstrap/lib/Button';
 
 function mapStateToProps(state) {
     return {
-        tasks: state.base
+        tasks: state.base,
+        abc: state.abc
     }
-}
-
-
-function mapDispatchToProps() {
-    return {}
 }
 
 @connect(mapStateToProps)
@@ -28,18 +25,23 @@ export default class Application extends React.Component {
     }
 
     render() {
-        console.log(this.props.tasks, 'app');
         return (
             <div>
+                <Button onClick={this.handleClearClick}>Clear Task List</Button>
+                <Button onClick={this.handleSortClick}>Toggle Abc sort</Button>
                 <ListTasksContainer/>
                 <AddTask/>
-                <Button onClick={this.handleClick}>ClearStore</Button>
             </div>
         );
     }
 
     @autobind
-    handleClick() {
+    handleClearClick() {
         this.props.dispatch(clearLocal());
+    }
+
+    @autobind
+    handleSortClick() {
+        this.props.dispatch(sortAbc());
     }
 }
