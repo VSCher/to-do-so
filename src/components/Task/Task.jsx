@@ -29,35 +29,27 @@ export default class Task extends React.Component {
 
         return (
             <div className={taskClass}>
+                {this.state.isOnEdit &&
+                <InputTask
+                    id={this.props.id}
+                    title={this.props.title}
+                    value={this.props.value}
+                    onSubmit={this.handleSubmitEdit}
+                />}
 
                 {!this.state.isOnEdit &&
-                <div>
+                <div className="task__container">
+                    <div className="task__title">
+                        {this.props.title}
+                    </div>
+                    <div className="task__description">
+                        {this.props.value}
+                    </div>
                     <button className="task__mark" onClick={this.handleToggleMark}>{markButtonText}</button>
                     <button className="task__delete" onClick={this.handleDelete}>delete</button>
                     <button className="task__edit" onClick={this.handleStartEdit}>edit</button>
                 </div>
                 }
-                <div className="task__container">
-                    {this.state.isOnEdit &&
-                    <InputTask
-                        id={this.props.id}
-                        title={this.props.title}
-                        value={this.props.value}
-                        onSubmit={this.handleSubmitEdit}
-                    />}
-
-                    {!this.state.isOnEdit &&
-                    <div className="task__text">
-                        <div className="task__title">
-                            {this.props.title}
-                        </div>
-                        <div className="task__description">
-                            {this.props.value}
-                        </div>
-                    </div>
-                    }
-                </div>
-
             </div>
         );
     }
