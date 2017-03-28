@@ -1,17 +1,17 @@
 export const ADD_TASK = 'ADD_TASK';
 export const CLEAR_LOCAL = 'CLEAR_LOCAL';
 export const TOGGLE_TASK = 'TOGGLE_TASK';
-export const EDIT_STARTED = 'EDIT_STARTED';
-export const EDIT_DONE = 'EDIT_DONE';
+export const SUBMIT_EDIT = 'SUBMIT_EDIT';
 export const DELETE_TASK = 'DELETE_TASK';
 
 let taskID = parseInt(Math.random().toString(36).substr(2, 5), 36);
 
-export function addTask(value) {
+export function addTask(value, title) {
     return {
         type: ADD_TASK,
         id: taskID++,
-        value
+        value,
+        title
     };
 }
 export function clearLocal() {
@@ -27,18 +27,11 @@ export function toggleMark(id) {
     };
 }
 
-export function editStarted(id) {
+export function submitEdit(value, title, id) {
     return {
-        type: EDIT_STARTED,
-        id
-    };
-}
-
-
-export function editDone(value, id) {
-    return {
-        type: EDIT_DONE,
+        type: SUBMIT_EDIT,
         value,
+        title,
         id,
     };
 }

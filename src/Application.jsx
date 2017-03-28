@@ -6,7 +6,7 @@ import * as acts from './redux/actions/baseActions';
 import * as sortActs from './redux/actions/sortActions';
 
 import InputTask from './components/InputTask';
-import ListTasksContainer from './containers/ListTasksContainer.jsx';
+import ListTasksContainer from './containers/ListTasksContainer';
 
 function mapStateToProps(state) {
     return {
@@ -24,8 +24,7 @@ export default class Application extends React.Component {
                 <button onClick={this.handleClear}>Clear Task List</button>
                 <button onClick={this.handleSort}>Toggle Abc sort</button>
                 <ListTasksContainer/>
-                <InputTask value="" onSubmit={this.handleAddTask}/>
-                <div>Click on task text to edit</div>
+                <InputTask onSubmit={this.handleAddTask}/>
             </div>
         );
     }
@@ -41,8 +40,8 @@ export default class Application extends React.Component {
     }
 
     @autobind
-    handleAddTask(value) {
-        this.props.dispatch(acts.addTask(value));
+    handleAddTask(value, title) {
+        this.props.dispatch(acts.addTask(value, title));
     }
 
 }

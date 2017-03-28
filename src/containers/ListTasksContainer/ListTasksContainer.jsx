@@ -1,17 +1,37 @@
 import React from 'react';
-import Task from '../Task';
+import { connect } from 'react-redux';
 
-import './ListTasks.css';
+import { toggleMark, editStarted, submitEdit, deleteTask }from '../../redux/actions/baseActions'
 
-export default class ListTasks extends React.Component {
+import Task from '../../components/Task';
+import './ListTasksContainer.css';
+
+function mapStateToProps(state) {
+    return {
+        tasks: state.base,
+        abc: state.abc
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onToggleMark: (id)=> dispatch(toggleMark(id)),
+        onStartEdit: (id)=> dispatch(editStarted(id)),
+        onDelete: (id)=> dispatch(deleteTask(id)),
+        onSubmitEdit: (value, title, id)=> dispatch(submitEdit(value, title, id)),
+    }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+export default class ListTasksContainer extends React.Component {
 
     render() {
         let todoItems = this.props.tasks;
 
         if (this.props.abc) {
             todoItems = todoItems.slice(0).sort((a, b)=> {
-                    let aValueLow = a.value.toLowerCase();
-                    let bValueLow = b.value.toLowerCase();
+                    let aValueLow = a.title.toLowerCase();
+                    let bValueLow = b.title.toLowerCase();
 
                     if (aValueLow > bValueLow) return 1;
                     if (aValueLow < bValueLow) return -1;
@@ -28,9 +48,8 @@ export default class ListTasks extends React.Component {
                             completed={item.completed}
                             id={item.id}
                             value={item.value}
-                            isOnEdit={item.isOnEdit}
+                            title={item.title}
                             onToggleMark={this.props.onToggleMark}
-                            onStartEdit={this.props.onStartEdit}
                             onDelete={this.props.onDelete}
                             onSubmitEdit={this.props.onSubmitEdit}
                         />

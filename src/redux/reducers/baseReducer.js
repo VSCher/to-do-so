@@ -5,7 +5,7 @@ const localStorageName = 'todotasks';
 const localData = loadFromLocalStorage(localStorageName);
 const initialState = localData ? localData : [];
 
-export default function (state, action) {
+export default function(state, action) {
     const data = reducer(state, action);
 
     saveToLocalStorage(localStorageName, data);
@@ -21,8 +21,8 @@ function reducer(state = initialState, action) {
                 {
                     completed: false,
                     value: action.value,
+                    title: action.title,
                     id: action.id,
-                    isOnEdit: false
                 }
             ];
 
@@ -38,26 +38,14 @@ function reducer(state = initialState, action) {
                 return task
             });
 
-        case acts.EDIT_STARTED :
-            return state.map(task=> {
-                if (task.id === action.id) {
-                    return {
-                        ...task,
-                        isOnEdit: true
-                    }
 
-                }
-                return task
-            });
-
-        case acts.EDIT_DONE :
+        case acts.SUBMIT_EDIT :
             return state.map(task=> {
                 if (task.id === action.id) {
                     return {
                         ...task,
                         value: action.value,
-                        isOnEdit: false,
-
+                        title: action.title,
                     }
 
                 }

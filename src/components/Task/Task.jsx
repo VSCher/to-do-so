@@ -9,12 +9,19 @@ export default class Task extends React.Component {
     static propTypes = {
         completed: React.PropTypes.bool.isRequired,
         value: React.PropTypes.string.isRequired,
+        title: React.PropTypes.string.isRequired,
         id: React.PropTypes.number.isRequired,
-        isOnEdit: React.PropTypes.bool.isRequired,
         onToggleMark: React.PropTypes.func.isRequired,
-        onStartEdit: React.PropTypes.func.isRequired,
         onDelete: React.PropTypes.func.isRequired,
     };
+
+    constructor() {
+        super();
+
+        this.state = {
+            isOnEdit: false
+        }
+    }
 
     render() {
         let taskClass = `task task__${this.props.completed ? "completed" : "uncompleted"}`;
@@ -23,13 +30,19 @@ export default class Task extends React.Component {
             <div className={taskClass}>
                 <button className="task__mark" onClick={this.handleToggleMark}>mark</button>
                 <button className="task__delete" onClick={this.handleDelete}>delete</button>
+                <button className="task__edit" onClick={this.handleStartEdit}>edit</button>
 
-                {this.props.isOnEdit &&
-                <InputTask id={this.props.id} value={this.props.value} onSubmit={this.handleSubmitEdit}/>}
+                {this.state.isOnEdit &&
+                <InputTask
+                    id={this.props.id}
+                    value={this.props.value}
+                    title={this.props.title}
+                    onSubmit={this.handleSubmitEdit}
+                />}
 
-                {!this.props.isOnEdit &&
-                <span className="task__text" onClick={this.handleStartEdit}>
-                    {this.props.value}
+                {!this.state.isOnEdit &&
+                <span className="task__text">
+                    {this.props.title}
                 </span>}
 
 
@@ -45,7 +58,9 @@ export default class Task extends React.Component {
 
     @autobind
     handleStartEdit() {
-        this.props.onStartEdit(this.props.id);
+        this.setState({
+            isOnEdit: true
+        });
     }
 
     @autobind
@@ -54,8 +69,11 @@ export default class Task extends React.Component {
     }
 
     @autobind
-    handleSubmitEdit(value, id) {
-        this.props.onSubmitEdit(value, id);
+    handleSubmitEdit(value, title, id) {
+        this.props.onSubmitEdit(value, title, id);
+        this.setState({
+            isOnEdit: false
+        });
     }
 
 

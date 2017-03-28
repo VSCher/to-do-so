@@ -9,6 +9,11 @@
 
 .task__delete {
     cursor: pointer;
+    margin-right: 10px;
+}
+
+.task__edit {
+    cursor: pointer;
     margin-right: 20px;
 }
 
