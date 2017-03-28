@@ -18,11 +18,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader!sass-loader',
-            },
-            {
-                test: /\.jpg$/,
-                loader: 'file?name=[path][name].[ext]',
+                loader: 'style-loader!css-loader',
             }
         ],
     }

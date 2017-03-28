@@ -8,7 +8,6 @@ const initialState = localData ? localData : [];
 export default function (state, action) {
     const data = reducer(state, action);
 
-    console.log(data, 'reducer data');
     saveToLocalStorage(localStorageName, data);
     return data;
 }
@@ -51,7 +50,7 @@ function reducer(state = initialState, action) {
                 return task
             });
 
-        case acts.EDIT_TASK :
+        case acts.EDIT_DONE :
             return state.map(task=> {
                 if (task.id === action.id) {
                     return {

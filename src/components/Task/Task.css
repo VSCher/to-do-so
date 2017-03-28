@@ -1,14 +1,18 @@
+.task {
+    margin: 10px 0;
+}
+
 .task__mark {
     cursor: pointer;
-    padding-right: 10px;
+    margin-right: 10px;
 }
 
 .task__delete {
     cursor: pointer;
-    padding-right: 20px;
+    margin-right: 20px;
 }
 
 .task__completed .task__text {
     text-decoration: line-through;
-    color: green;
+    color: #419300;
 }

@@ -2,13 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import autobind from 'autobind-decorator';
 
-import { clearLocal } from './redux/actions/baseActions';
-import { sortAbc } from './redux/actions/sortActions';
+import * as acts from './redux/actions/baseActions';
+import * as sortActs from './redux/actions/sortActions';
 
-import AddTask from './containers/AddTaskContainer.jsx';
+import InputTask from './components/InputTask';
 import ListTasksContainer from './containers/ListTasksContainer.jsx';
-
-import Button  from 'react-bootstrap/lib/Button';
 
 function mapStateToProps(state) {
     return {
@@ -20,28 +18,31 @@ function mapStateToProps(state) {
 @connect(mapStateToProps)
 export default class Application extends React.Component {
 
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div>
-                <Button onClick={this.handleClearClick}>Clear Task List</Button>
-                <Button onClick={this.handleSortClick}>Toggle Abc sort</Button>
+                <button onClick={this.handleClear}>Clear Task List</button>
+                <button onClick={this.handleSort}>Toggle Abc sort</button>
                 <ListTasksContainer/>
-                <AddTask/>
+                <InputTask value="" onSubmit={this.handleAddTask}/>
+                <div>Click on task text to edit</div>
             </div>
         );
     }
 
     @autobind
-    handleClearClick() {
-        this.props.dispatch(clearLocal());
+    handleSort() {
+        this.props.dispatch(sortActs.sortAbc());
     }
 
     @autobind
-    handleSortClick() {
-        this.props.dispatch(sortAbc());
+    handleClear() {
+        this.props.dispatch(acts.clearLocal());
     }
+
+    @autobind
+    handleAddTask(value) {
+        this.props.dispatch(acts.addTask(value));
+    }
+
 }

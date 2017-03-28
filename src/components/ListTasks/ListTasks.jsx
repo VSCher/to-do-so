@@ -7,10 +7,14 @@ export default class ListTasks extends React.Component {
 
     render() {
         let todoItems = this.props.tasks;
+
         if (this.props.abc) {
             todoItems = todoItems.slice(0).sort((a, b)=> {
-                    if (a.value > b.value) return 1;
-                    if (a.value < b.value) return -1;
+                    let aValueLow = a.value.toLowerCase();
+                    let bValueLow = b.value.toLowerCase();
+
+                    if (aValueLow > bValueLow) return 1;
+                    if (aValueLow < bValueLow) return -1;
                 }
             );
         }
@@ -25,9 +29,10 @@ export default class ListTasks extends React.Component {
                             id={item.id}
                             value={item.value}
                             isOnEdit={item.isOnEdit}
-                            onMark={this.props.onMark}
-                            onEdit={this.props.onEdit}
+                            onToggleMark={this.props.onToggleMark}
+                            onStartEdit={this.props.onStartEdit}
                             onDelete={this.props.onDelete}
+                            onSubmitEdit={this.props.onSubmitEdit}
                         />
                     );
                 })}

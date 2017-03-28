@@ -1,7 +1,7 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 
-import EditTaskContainer from '../../containers/EditTaskContainer.jsx';
+import InputTask from '../../components/InputTask';
 
 import './Task.css';
 
@@ -9,25 +9,26 @@ export default class Task extends React.Component {
     static propTypes = {
         completed: React.PropTypes.bool.isRequired,
         value: React.PropTypes.string.isRequired,
+        id: React.PropTypes.number.isRequired,
         isOnEdit: React.PropTypes.bool.isRequired,
-        onMark: React.PropTypes.func.isRequired,
-        onEdit: React.PropTypes.func.isRequired,
+        onToggleMark: React.PropTypes.func.isRequired,
+        onStartEdit: React.PropTypes.func.isRequired,
         onDelete: React.PropTypes.func.isRequired,
     };
 
     render() {
+        let taskClass = `task task__${this.props.completed ? "completed" : "uncompleted"}`;
 
-        let taskClass = this.props.completed ? "task__completed" : "task__uncompleted";
         return (
             <div className={taskClass}>
-                <span className="task__mark" onClick={this.handleMark}>[mark]</span>
-                <span className="task__delete" onClick={this.handleDelete}>[delete]</span>
+                <button className="task__mark" onClick={this.handleToggleMark}>mark</button>
+                <button className="task__delete" onClick={this.handleDelete}>delete</button>
 
                 {!!this.props.isOnEdit &&
-                <EditTaskContainer id={this.props.id} value={this.props.value}/>}
+                <InputTask id={this.props.id} value={this.props.value} onSubmit={this.handleSubmitEdit}/>}
 
                 {!this.props.isOnEdit &&
-                <span className="task__text" onClick={this.handleEdit}>
+                <span className="task__text" onClick={this.handleStartEdit}>
                     {this.props.value}
                 </span>}
 
@@ -38,19 +39,24 @@ export default class Task extends React.Component {
 
 
     @autobind
-    handleMark() {
-        this.props.onMark(this.props.id);
+    handleToggleMark() {
+        this.props.onToggleMark(this.props.id);
     }
 
     @autobind
-    handleEdit() {
-        this.props.onEdit(this.props.id);
-
+    handleStartEdit() {
+        this.props.onStartEdit(this.props.id);
     }
 
     @autobind
     handleDelete() {
         this.props.onDelete(this.props.id);
     }
+
+    @autobind
+    handleSubmitEdit(value, id) {
+        this.props.onSubmitEdit(value, id);
+    }
+
 
 }
