@@ -8,7 +8,6 @@ import './Task.css';
 export default class Task extends React.Component {
     static propTypes = {
         completed: React.PropTypes.bool.isRequired,
-        value: React.PropTypes.string.isRequired,
         id: React.PropTypes.number.isRequired,
         isOnEdit: React.PropTypes.bool.isRequired,
         onToggleMark: React.PropTypes.func.isRequired,
@@ -23,14 +22,21 @@ export default class Task extends React.Component {
             <div className={taskClass}>
                 <button className="task__mark" onClick={this.handleToggleMark}>mark</button>
                 <button className="task__delete" onClick={this.handleDelete}>delete</button>
+                <button className="task__edit" onClick={this.handleStartEdit}>edit</button>
 
                 {this.props.isOnEdit &&
-                <InputTask id={this.props.id} value={this.props.value} onSubmit={this.handleSubmitEdit}/>}
+                <InputTask
+                    id={this.props.id}
+                    title={this.props.value.title}
+                    text={this.props.value.text}
+                    onSubmit={this.handleSubmitEdit}
+                />}
 
                 {!this.props.isOnEdit &&
-                <span className="task__text" onClick={this.handleStartEdit}>
-                    {this.props.value}
-                </span>}
+                <div className="task__info">
+                    <div className="task__title">{this.props.value.title}</div>
+                    <div className="task__text">{this.props.value.text}</div>
+                </div>}
 
 
             </div>

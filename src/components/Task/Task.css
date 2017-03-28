@@ -4,15 +4,25 @@
 
 .task__mark {
     cursor: pointer;
-    margin-right: 10px;
 }
 
 .task__delete {
     cursor: pointer;
-    margin-right: 20px;
 }
 
-.task__completed .task__text {
+.task__edit {
+    cursor: pointer;
+}
+
+.task__info {
+
+}
+
+.task__title {
+    font-size: 1.5em;
+}
+
+.task__completed .task__info {
     text-decoration: line-through;
     color: #419300;
 }

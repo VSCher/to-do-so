@@ -24,7 +24,7 @@ export default class Application extends React.Component {
                 <button onClick={this.handleClear}>Clear Task List</button>
                 <button onClick={this.handleSort}>Toggle Abc sort</button>
                 <ListTasksContainer/>
-                <InputTask value="" onSubmit={this.handleAddTask}/>
+                <InputTask onSubmit={this.handleAddTask}/>
                 <div>Click on task text to edit</div>
             </div>
         );

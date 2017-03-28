@@ -10,8 +10,8 @@ export default class ListTasks extends React.Component {
 
         if (this.props.abc) {
             todoItems = todoItems.slice(0).sort((a, b)=> {
-                    let aValueLow = a.value.toLowerCase();
-                    let bValueLow = b.value.toLowerCase();
+                    let aValueLow = a.value.title.toLowerCase();
+                    let bValueLow = b.value.title.toLowerCase();
 
                     if (aValueLow > bValueLow) return 1;
                     if (aValueLow < bValueLow) return -1;

@@ -5,24 +5,35 @@ import './InputTask.css';
 
 export default class InputTask extends React.Component {
     static propTypes = {
-        value: React.PropTypes.string.isRequired,
+        title: React.PropTypes.string,
+        text: React.PropTypes.string,
         onSubmit: React.PropTypes.func.isRequired,
     };
 
     constructor() {
         super();
-        this.state = { value: '' };
+
+        this.state = {
+            title: '',
+            text: ''
+        };
+
     }
 
+
     componentDidMount() {
-        this.setState({ value: this.props.value });
+        this.setState({
+            title: this.props.title || '',
+            text: this.props.text || ''
+        });
     }
 
     render() {
         return (
             <div className="input-task">
                 <form onSubmit={this.handleSubmit}>
-                    <input value={this.state.value} onChange={this.handleChange} type="text"/>
+                    <input value={this.state.title} onChange={this.handleChangeTitle} type="text"/>
+                    <input value={this.state.text} onChange={this.handleChangeText} type="text"/>
                     <input type="submit" value="Submit"/>
                 </form>
             </div>
@@ -32,14 +43,22 @@ export default class InputTask extends React.Component {
     @autobind
     handleSubmit(event) {
         event.preventDefault();
-        if (this.state.value) {
-            this.props.onSubmit(this.state.value, this.props.id);
-            this.setState({ value: this.props.value });
+        if (this.state.title) {
+            this.props.onSubmit(this.state, this.props.id);
+            this.setState({
+                title: '',
+                text: ''
+            });
         }
     }
 
     @autobind
-    handleChange(event) {
-        this.setState({ value: event.target.value });
+    handleChangeTitle(event) {
+        this.setState({ title: event.target.value });
+    }
+
+    @autobind
+    handleChangeText(event) {
+        this.setState({ text: event.target.value });
     }
 }
