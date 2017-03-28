@@ -3,6 +3,6 @@
     display: inline-block;
 }
 
-.input-task__description {
-    margin-left: 10px;
+.input-task__title {
+    font-size: 1.5em;
 }

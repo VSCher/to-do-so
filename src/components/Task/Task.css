@@ -1,5 +1,5 @@
 .task {
-    margin: 10px 0;
+    margin: 10px 0 20px;
 }
 
 .task__mark {
@@ -17,7 +17,11 @@
     margin-right: 20px;
 }
 
-.task__completed .task__text {
+.task__title {
+    font-size: 1.5em;
+}
+
+.task__completed {
     text-decoration: line-through;
     color: #419300;
 }

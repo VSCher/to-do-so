@@ -29,17 +29,22 @@ export default class InputTask extends React.Component {
         return (
             <div className="input-task">
                 <form onSubmit={this.handleSubmit}>
-                    <div>
-                    <span className="input-task__title">
-                        Title:
-                        <input value={this.state.title} onChange={this.handleChangeTitle} type="text"/>
-                    </span>
-                        <span className="input-task__description">
-                            Description:
-                            <input value={this.state.value} onChange={this.handleChangeValue} type="text"/>
-                        </span>
-                        <input type="submit" value="Submit"/>
+                    <div className="input-task__title">
+                        <input value={this.state.title}
+                               onChange={this.handleChangeTitle}
+                               type="text"
+                               placeholder="title"
+                        />
                     </div>
+                    <div className="input-task__description">
+                        <input
+                            value={this.state.value}
+                            onChange={this.handleChangeValue}
+                            type="text"
+                            placeholder="description"
+                        />
+                    </div>
+                    <input type="submit" value="Submit"/>
                 </form>
             </div>
         );

@@ -25,26 +25,38 @@ export default class Task extends React.Component {
 
     render() {
         let taskClass = `task task__${this.props.completed ? "completed" : "uncompleted"}`;
+        let markButtonText = this.props.completed ? "unmark" : "mark";
 
         return (
             <div className={taskClass}>
-                <button className="task__mark" onClick={this.handleToggleMark}>mark</button>
-                <button className="task__delete" onClick={this.handleDelete}>delete</button>
-                <button className="task__edit" onClick={this.handleStartEdit}>edit</button>
-
-                {this.state.isOnEdit &&
-                <InputTask
-                    id={this.props.id}
-                    value={this.props.value}
-                    title={this.props.title}
-                    onSubmit={this.handleSubmitEdit}
-                />}
 
                 {!this.state.isOnEdit &&
-                <span className="task__text">
-                    {this.props.title}
-                </span>}
+                <div>
+                    <button className="task__mark" onClick={this.handleToggleMark}>{markButtonText}</button>
+                    <button className="task__delete" onClick={this.handleDelete}>delete</button>
+                    <button className="task__edit" onClick={this.handleStartEdit}>edit</button>
+                </div>
+                }
+                <div className="task__container">
+                    {this.state.isOnEdit &&
+                    <InputTask
+                        id={this.props.id}
+                        title={this.props.title}
+                        value={this.props.value}
+                        onSubmit={this.handleSubmitEdit}
+                    />}
 
+                    {!this.state.isOnEdit &&
+                    <div className="task__text">
+                        <div className="task__title">
+                            {this.props.title}
+                        </div>
+                        <div className="task__description">
+                            {this.props.value}
+                        </div>
+                    </div>
+                    }
+                </div>
 
             </div>
         );
