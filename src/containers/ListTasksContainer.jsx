@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ListTasks from '../components/ListTasks/ListTasks.jsx';
+import ListTasks from '../components/ListTasks';
 import { toggleMark, editStarted, editDone, deleteTask }from '../redux/actions/baseActions'
 
 function mapStateToProps(state) {

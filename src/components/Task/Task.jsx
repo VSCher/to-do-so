@@ -24,7 +24,7 @@ export default class Task extends React.Component {
                 <button className="task__mark" onClick={this.handleToggleMark}>mark</button>
                 <button className="task__delete" onClick={this.handleDelete}>delete</button>
 
-                {!!this.props.isOnEdit &&
+                {this.props.isOnEdit &&
                 <InputTask id={this.props.id} value={this.props.value} onSubmit={this.handleSubmitEdit}/>}
 
                 {!this.props.isOnEdit &&
