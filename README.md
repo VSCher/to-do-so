@@ -7,5 +7,5 @@ Simple ToDo on react+redux
 * Remove a task
 * Persist tasks between working sessions (it uses LocalStorage to save data)
 
-#Demo
+# Demo
 https://vscher.github.io/to-do-so/
