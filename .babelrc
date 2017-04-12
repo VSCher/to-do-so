@@ -10,7 +10,6 @@
     "react"
   ],
   "plugins": [
-    "syntax-async-functions",
     "transform-decorators-legacy"
   ]
 }
