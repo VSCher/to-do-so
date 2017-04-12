@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleMark, editStarted, submitEdit, deleteTask }from '../../redux/actions/baseActions'
-
-import * as actions from '../redux/actions/baseActions'
+import * as actions from '../../redux/actions/baseActions';
 import Task from '../../components/Task';
 import './ListTasksContainer.css';
 
@@ -16,10 +14,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onToggleMark: (id)=> dispatch(actionss.toggleMark(id)),
-        onStartEdit: (id)=> dispatch(actionss.editStarted(id)),
-        onDelete: (id)=> dispatch(actionss.deleteTask(id)),
-        onSubmitEdit: (value, title, id)=> dispatch(actionss.submitEdit(value, title, id)),
+        onToggleMark: (id)=> dispatch(actions.toggleMark(id)),
+        onStartEdit: (id)=> dispatch(actions.editStarted(id)),
+        onDelete: (id)=> dispatch(actions.deleteTask(id)),
+        onSubmitEdit: (value, title, id)=> dispatch(actions.submitEdit(value, title, id)),
     }
 }
 
