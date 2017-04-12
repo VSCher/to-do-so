@@ -32,8 +32,14 @@ export default class ListTasksContainer extends React.Component {
                     let aValueLow = a.title.toLowerCase();
                     let bValueLow = b.title.toLowerCase();
 
-                    if (aValueLow > bValueLow) return 1;
-                    if (aValueLow < bValueLow) return -1;
+                    if (aValueLow > bValueLow) {
+                        return 1;
+                    }
+                    if (aValueLow < bValueLow) {
+                        return -1;
+                    }
+
+                    return 0;
                 }
             );
         }
